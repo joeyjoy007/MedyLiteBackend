@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var medicineController_1 = require("./../medicines/medicineController");
+var express_1 = require("express");
+var router = (0, express_1.Router)();
+router.post('/', medicineController_1.createMedicine);
+router.get('/');
+router.patch('/:id');
+router.delete('/:id');
+exports.default = router;
