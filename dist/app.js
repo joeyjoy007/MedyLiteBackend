@@ -16,6 +16,7 @@ const shopRoute_1 = __importDefault(require("./mainAPIS/shop/shopRoute"));
 const reviewRoute_1 = __importDefault(require("./mainAPIS/reviews/reviewRoute"));
 const stateRoute_1 = __importDefault(require("./mainAPIS/address/state/stateRoute"));
 const streetAddressRoute_1 = __importDefault(require("./mainAPIS/address/streetAddress/streetAddressRoute"));
+const MedNewsRoute_1 = __importDefault(require("./mainAPIS/medNews/MedNewsRoute"));
 const y = require("./redis");
 const app = (0, express_1.default)();
 /** Connect to mongoDB */
@@ -61,6 +62,7 @@ const startServer = () => {
     app.use("/review", reviewRoute_1.default);
     app.use("/state", stateRoute_1.default);
     app.use("/street", streetAddressRoute_1.default);
+    app.use("/medNews", MedNewsRoute_1.default);
     /**Healthcheck */
     /**Error handeling */
     app.use((req, res, next) => {

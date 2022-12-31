@@ -24,9 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const medicineListSchema = new mongoose_1.Schema({
-    name: { type: String },
-    parent: [{ type: mongoose_1.default.Types.ObjectId, ref: "ParentCategory" }],
-    effective: { type: String }
+const newsSchema = new mongoose_1.Schema({
+    news: { type: String }
 });
-exports.default = mongoose_1.default.model('MedicineList', medicineListSchema);
+exports.default = mongoose_1.default.model('News', newsSchema);

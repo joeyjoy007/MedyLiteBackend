@@ -46,7 +46,7 @@ const chemistSchema = new mongoose_1.Schema({
     role: { type: String, default: "user" },
     shopName: { type: String },
     shopId: { type: mongoose_1.default.Types.ObjectId, ref: "Shop" },
-    address: { type: String },
+    streetAddress: { type: mongoose_1.default.Types.ObjectId, ref: "StreetAddress" },
 }, {
     timestamps: true,
 });

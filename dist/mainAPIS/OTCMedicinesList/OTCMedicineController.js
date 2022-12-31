@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllMedicine = exports.createMedicineList = void 0;
+exports.updateInALlMedicine = exports.getAllMedicine = exports.createMedicineList = void 0;
 const responseHandler_1 = require("../../helpers/responseHandler");
 const parentMedicine_1 = __importDefault(require("../parentMedicine/parentMedicine"));
 const OTCMedicine_1 = __importDefault(require("./OTCMedicine"));
@@ -249,3 +249,18 @@ const getAllMedicine = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.getAllMedicine = getAllMedicine;
+const updateInALlMedicine = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const medicine = yield OTCMedicine_1.default.updateMany({ effective: '80' });
+        if (medicine) {
+            (0, responseHandler_1.response)(200, 1, medicine, "All for update Medicine fethced", res);
+        }
+        else {
+            (0, responseHandler_1.response)(400, 0, "Not found", "Medicine not fethced", res);
+        }
+    }
+    catch (error) {
+        (0, responseHandler_1.response)(400, 0, error.message, "Error Occured", res);
+    }
+});
+exports.updateInALlMedicine = updateInALlMedicine;

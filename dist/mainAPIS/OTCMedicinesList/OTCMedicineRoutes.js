@@ -11,4 +11,5 @@ router.post("/", authentication_1.default, OTCMedicineController_1.createMedicin
 router.get("/", OTCMedicineController_1.getAllMedicine);
 router.patch("/:id");
 router.delete("/:id");
+router.put("/update", OTCMedicineController_1.updateInALlMedicine);
 exports.default = router;

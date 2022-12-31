@@ -17,8 +17,10 @@ const generateToken_1 = require("./../../helpers/generateToken");
 const responseHandler_1 = require("../../helpers/responseHandler");
 const chemistModel_1 = __importDefault(require("./chemistModel"));
 const shopModal_1 = __importDefault(require("../shop/shopModal"));
+const streetAddressModel_1 = __importDefault(require("../address/streetAddress/streetAddressModel"));
 const createChemist = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("Chemist Data...", req.body);
         const chemist = new chemistModel_1.default(req.body)
             .save()
             .then((chemist) => __awaiter(void 0, void 0, void 0, function* () {
@@ -31,6 +33,9 @@ const createChemist = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                 const updateChemist = yield chemistModel_1.default.findByIdAndUpdate({
                     _id: chemist._id,
                 }, { shopId: shop._id });
+                const updateAddress = yield streetAddressModel_1.default.findByIdAndUpdate({ _id: req.body.streetAddress }, {
+                    $push: { chemistInArea: chemist._id }
+                });
             }
         }))
             .catch((err) => {

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStreetAddress = exports.createStreetAddress = void 0;
+exports.getLocalAddress = exports.getStreetAddress = exports.createStreetAddress = void 0;
 const responseHandler_1 = require("./../../../helpers/responseHandler");
 const streetAddressModel_1 = __importDefault(require("./streetAddressModel"));
 const stateModel_1 = __importDefault(require("../state/stateModel"));
@@ -43,4 +43,17 @@ const getStreetAddress = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.getStreetAddress = getStreetAddress;
-module.exports = { createStreetAddress: exports.createStreetAddress, getStreetAddress: exports.getStreetAddress };
+const getLocalAddress = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log("VAl", req.body);
+        const address = yield streetAddressModel_1.default.findById({ _id: req.body.id }).populate('chemistInArea');
+        if (address) {
+            (0, responseHandler_1.response)(201, 1, address, "Street localAddress fetched ", res);
+        }
+    }
+    catch (error) {
+        (0, responseHandler_1.response)(400, 0, error.message, "Street localAddress not fetched", res);
+    }
+});
+exports.getLocalAddress = getLocalAddress;
+module.exports = { createStreetAddress: exports.createStreetAddress, getStreetAddress: exports.getStreetAddress, getLocalAddress: exports.getLocalAddress };

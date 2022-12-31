@@ -5,6 +5,6 @@ const router = Router();
 
 router.post("/create", createState);
 router.get ("/get", getState);
-router.get ("/getState", getParticularState);
+router.post ("/getState", getParticularState);
 
 export default router;

@@ -3,9 +3,11 @@ import { RequestHandler } from "express";
 import { response } from "../../helpers/responseHandler";
 import chemistModel from "./chemistModel";
 import shopModal from "../shop/shopModal";
+import streetAddressModel from "../address/streetAddress/streetAddressModel";
 
 export const createChemist: RequestHandler = async (req, res, next) => {
     try {
+        console.log("Chemist Data...",req.body)
         const chemist = new chemistModel(req.body)
             .save()
             .then(async (chemist) => {
@@ -22,6 +24,10 @@ export const createChemist: RequestHandler = async (req, res, next) => {
                         },
                         { shopId: shop._id }
                     );
+
+                    const updateAddress = await streetAddressModel.findByIdAndUpdate({_id:req.body.streetAddress},{
+                        $push:{chemistInArea:chemist._id}
+                    })
                 }
             })
             .catch((err: any) => {

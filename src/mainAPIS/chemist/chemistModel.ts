@@ -3,8 +3,14 @@ import bcrypt from "bcrypt";
 import { response } from "../../helpers/responseHandler";
 
 export interface IChemist {
-    name: string;
-    experience: string | number;
+        name:  string ,
+        experience:  string ,
+        phoneNumber:  string ,
+        password:  string ,
+        role: string,
+        shopName:  string ,
+        shopId: Types.ObjectId,
+        streetAddress: Types.ObjectId,
 }
 
 export interface IChemistModel extends IChemist, Document {
@@ -20,7 +26,7 @@ const chemistSchema: Schema = new Schema(
         role: { type: String, default: "user" },
         shopName: { type: String },
         shopId: { type: mongoose.Types.ObjectId, ref: "Shop" },
-        address: { type: String },
+        streetAddress: { type: mongoose.Types.ObjectId ,ref:"StreetAddress"},
     },
     {
         timestamps: true,

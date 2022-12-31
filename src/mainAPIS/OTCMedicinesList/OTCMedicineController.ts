@@ -252,7 +252,20 @@ export const getAllMedicine: RequestHandler = async (req, res, next) => {
         } else {
             response(400, 0, "Not found", "Medicine not fethced", res);
         }
-    } catch (error) {
+    } catch (error:any) {
+        response(400, 0, error.message, "Error Occured", res);
+    }
+};
+
+export const updateInALlMedicine: RequestHandler = async (req, res, next) => {
+    try {
+        const medicine = await OTCMedicine.updateMany({effective:'80'});
+        if (medicine) {
+            response(200, 1, medicine, "All for update Medicine fethced", res);
+        } else {
+            response(400, 0, "Not found", "Medicine not fethced", res);
+        }
+    } catch (error:any) {
         response(400, 0, error.message, "Error Occured", res);
     }
 };

@@ -11,6 +11,7 @@ import shopListRoute from "./mainAPIS/shop/shopRoute";
 import reviewListRoute from "./mainAPIS/reviews/reviewRoute";
 import stateRoute from "./mainAPIS/address/state/stateRoute";
 import streetAddressRoute from "./mainAPIS/address/streetAddress/streetAddressRoute";
+import medNewsRoute from "./mainAPIS/medNews/MedNewsRoute";
 import { urlencoded } from "body-parser";
 const y = require("./redis");
 const app = express();
@@ -76,6 +77,7 @@ const startServer = () => {
     app.use("/review", reviewListRoute);
     app.use("/state", stateRoute);
     app.use("/street", streetAddressRoute);
+    app.use("/medNews", medNewsRoute);
     /**Healthcheck */
 
     /**Error handeling */

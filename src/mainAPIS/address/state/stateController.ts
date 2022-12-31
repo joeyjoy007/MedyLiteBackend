@@ -26,7 +26,15 @@ export const getState: RequestHandler = async (req, res, next) => {
 };
 export const getParticularState: RequestHandler = async (req, res, next) => {
     try {
-        const address = await  stateModel.findById({_id:req.body.stateId}).populate('stateChild')
+        console.log("daata",req.body)
+        const address = await  stateModel.findById({_id:req.body.stateId}) .populate({
+                path: "stateChild",
+                populate: [
+                    {
+                        path: "chemistInArea",
+                    },
+                ],
+            });
         if(address){
             response(201, 1, address, "State fetched", res);
         }

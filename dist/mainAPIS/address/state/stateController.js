@@ -41,7 +41,15 @@ const getState = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 exports.getState = getState;
 const getParticularState = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const address = yield stateModel_1.default.findById({ _id: req.body.stateId }).populate('stateChild');
+        console.log("daata", req.body);
+        const address = yield stateModel_1.default.findById({ _id: req.body.stateId }).populate({
+            path: "stateChild",
+            populate: [
+                {
+                    path: "chemistInArea",
+                },
+            ],
+        });
         if (address) {
             (0, responseHandler_1.response)(201, 1, address, "State fetched", res);
         }

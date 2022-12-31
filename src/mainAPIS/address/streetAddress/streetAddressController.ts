@@ -29,5 +29,17 @@ export const getStreetAddress: RequestHandler = async (req, res, next) => {
     }
 };
 
+export const getLocalAddress: RequestHandler = async (req, res, next) => {
+    try {
+        console.log("VAl",req.body);
+        const address = await  streetAddressModel.findById({_id:req.body.id}).populate('chemistInArea')
+        if(address){
+            response(201, 1, address, "Street localAddress fetched ", res);
+        }
+    } catch (error: any) {
+        response(400, 0, error.message, "Street localAddress not fetched", res);
+    }
+};
 
-module.exports = { createStreetAddress ,getStreetAddress};
+
+module.exports = { createStreetAddress ,getStreetAddress ,getLocalAddress};

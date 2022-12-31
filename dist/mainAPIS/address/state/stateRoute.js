@@ -5,5 +5,5 @@ const express_1 = require("express");
 const router = (0, express_1.Router)();
 router.post("/create", stateController_1.createState);
 router.get("/get", stateController_1.getState);
-router.get("/getState", stateController_1.getParticularState);
+router.post("/getState", stateController_1.getParticularState);
 exports.default = router;
