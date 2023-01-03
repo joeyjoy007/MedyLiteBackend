@@ -6,6 +6,7 @@ const router = (0, express_1.Router)();
 // router.post("/", createChemist);
 router.route("/shopItem/:id").patch(shopController_1.insertShopItem);
 router.route("/shopItem/:id").get(shopController_1.showShopItem);
+router.get("/getAllShop", shopController_1.getAllShops);
 router.patch("/:id");
 router.delete("/:id");
 exports.default = router;

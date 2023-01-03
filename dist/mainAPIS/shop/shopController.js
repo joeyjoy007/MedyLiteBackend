@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.showShopItem = exports.insertShopItem = void 0;
+exports.getAllShops = exports.showShopItem = exports.insertShopItem = void 0;
 const responseHandler_1 = require("../../helpers/responseHandler");
 const shopModal_1 = __importDefault(require("./shopModal"));
 const insertShopItem = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -54,3 +54,17 @@ const showShopItem = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.showShopItem = showShopItem;
+const getAllShops = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const shops = yield shopModal_1.default.find().populate({
+            path: 'shopOwner shopItems reviews',
+        });
+        if (shops) {
+            (0, responseHandler_1.response)(200, 1, shops, "Shop fetched", res);
+        }
+    }
+    catch (error) {
+        (0, responseHandler_1.response)(400, 0, error, "Shop not fetched", res);
+    }
+});
+exports.getAllShops = getAllShops;

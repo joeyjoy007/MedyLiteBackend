@@ -9,23 +9,23 @@ export const createReview: RequestHandler = async (req, res, next) => {
         if (review) {
             console.log(review.shopId);
             const updateShop = await shopModal.findByIdAndUpdate(
-                { _id: review.shopId }
+                { _id: review.shopId },
                 { $push: { reviews: review._id } }
             );
             console.log("IP", updateShop);
         }
         response(201, 1, review, "Review  created", res);
-    } catch (error) {
+    } catch (error:any) {
         response(400, 0, error.medicine, "Review not created", res);
     }
 };
 
-export const getReview: RequestHandler = async (req, res, next) => {
+export const getShopReview: RequestHandler = async (req, res, next) => {
     try {
-        const _id = req.params.id;
-        const review = await reviewsModel.findById(_id);
-        response(201, 1, review, "Review  created", res);
-    } catch (error) {
-        response(400, 0, error.medicine, "Review not created", res);
+        const shopId = req.params.id;
+
+        response(201, 1, review, "Review  fetched", res);
+    } catch (error:any) {
+        response(400, 0, error.medicine, "Review not fetched", res);
     }
 };

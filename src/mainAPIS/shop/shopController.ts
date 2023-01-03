@@ -43,3 +43,17 @@ export const showShopItem: RequestHandler = async (req, res, next) => {
         res.status(400).json({ message: error.message });
     }
 };
+
+export const getAllShops:RequestHandler = async(req,res,next)=>{
+    try {
+        const shops = await shopModal.find().populate({
+            path:'shopOwner shopItems reviews',
+        })
+        if(shops){
+            response(200, 1, shops, "Shop fetched", res);
+        }
+
+    } catch (error:any) {
+        response(400, 0, error, "Shop not fetched", res);
+    }
+}
