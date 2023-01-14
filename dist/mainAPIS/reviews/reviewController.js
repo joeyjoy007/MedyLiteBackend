@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getShopReview = exports.createReview = void 0;
+exports.getParticularShopReview = exports.getShopReview = exports.createReview = void 0;
 const responseHandler_1 = require("../../helpers/responseHandler");
 const shopModal_1 = __importDefault(require("../shop/shopModal"));
 const reviewsModel_1 = __importDefault(require("./reviewsModel"));
@@ -34,7 +34,6 @@ exports.createReview = createReview;
 const getShopReview = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const shopId = req.params.id;
-        const review = yield reviewsModel_1.default.find({ shopId });
         (0, responseHandler_1.response)(201, 1, review, "Review  fetched", res);
     }
     catch (error) {
@@ -42,3 +41,17 @@ const getShopReview = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.getShopReview = getShopReview;
+const getParticularShopReview = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log('llll');
+        const shopId = req.body.id;
+        console.log('shhhh', shopId);
+        const review = yield reviewsModel_1.default.find({ shopId }).populate('userId');
+        console.log('Reviews', review);
+        (0, responseHandler_1.response)(201, 1, review, "Review  fetched", res);
+    }
+    catch (error) {
+        (0, responseHandler_1.response)(400, 0, error.medicine, "Review not fetched", res);
+    }
+});
+exports.getParticularShopReview = getParticularShopReview;

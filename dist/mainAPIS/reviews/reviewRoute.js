@@ -5,4 +5,5 @@ const express_1 = require("express");
 const router = (0, express_1.Router)();
 router.route("/").post(reviewController_1.createReview);
 router.route("/review/:id").get(reviewController_1.getShopReview);
+router.route("/shopReview").post(reviewController_1.getParticularShopReview);
 exports.default = router;

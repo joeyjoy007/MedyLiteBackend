@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateInALlMedicine = exports.getAllMedicine = exports.createMedicineList = void 0;
+exports.getMedInfo = exports.updateInALlMedicine = exports.getAllMedicine = exports.createMedicineList = void 0;
 const responseHandler_1 = require("../../helpers/responseHandler");
 const parentMedicine_1 = __importDefault(require("../parentMedicine/parentMedicine"));
 const OTCMedicine_1 = __importDefault(require("./OTCMedicine"));
@@ -264,3 +264,19 @@ const updateInALlMedicine = (req, res, next) => __awaiter(void 0, void 0, void 0
     }
 });
 exports.updateInALlMedicine = updateInALlMedicine;
+const getMedInfo = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const _id = req.body.id;
+        const medicine = yield OTCMedicine_1.default.findById(_id).populate('parent');
+        if (medicine) {
+            (0, responseHandler_1.response)(200, 1, medicine, " Medicine fethced", res);
+        }
+        else {
+            (0, responseHandler_1.response)(400, 0, "Not found", "Medicine not fethced", res);
+        }
+    }
+    catch (error) {
+        (0, responseHandler_1.response)(400, 0, error.message, "Error Occured", res);
+    }
+});
+exports.getMedInfo = getMedInfo;

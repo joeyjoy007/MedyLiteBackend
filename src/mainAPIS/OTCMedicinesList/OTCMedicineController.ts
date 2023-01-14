@@ -269,3 +269,20 @@ export const updateInALlMedicine: RequestHandler = async (req, res, next) => {
         response(400, 0, error.message, "Error Occured", res);
     }
 };
+
+export const getMedInfo: RequestHandler = async (req, res, next) => {
+    try {
+        const _id = req.body.id
+
+        const medicine = await OTCMedicine.findById(_id).populate('parent')
+
+
+        if (medicine) {
+            response(200, 1, medicine, " Medicine fethced", res);
+        } else {
+            response(400, 0, "Not found", "Medicine not fethced", res);
+        }
+    } catch (error:any) {
+        response(400, 0, error.message, "Error Occured", res);
+    }
+};

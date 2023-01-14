@@ -47,8 +47,26 @@ export const showShopItem: RequestHandler = async (req, res, next) => {
 export const getAllShops:RequestHandler = async(req,res,next)=>{
     try {
         const shops = await shopModal.find().populate({
-            path:'shopOwner shopItems reviews',
-        })
+            // path:'shopOwner shopItems reviews',
+            path:'shopOwner',
+            populate:[
+                {
+                    path:'shopId',
+                    populate:[
+                        {path:'reviews',
+                        populate:[{
+                            path:'userId'
+                        }]
+                    },
+                    {path:'shopItems',
+                    populate:[{
+                        path:'parent'
+                    }]
+                    }
+                    ]
+                }
+            ]
+        }).select('shopOwner')
         if(shops){
             response(200, 1, shops, "Shop fetched", res);
         }

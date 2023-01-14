@@ -57,8 +57,26 @@ exports.showShopItem = showShopItem;
 const getAllShops = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const shops = yield shopModal_1.default.find().populate({
-            path: 'shopOwner shopItems reviews',
-        });
+            // path:'shopOwner shopItems reviews',
+            path: 'shopOwner',
+            populate: [
+                {
+                    path: 'shopId',
+                    populate: [
+                        { path: 'reviews',
+                            populate: [{
+                                    path: 'userId'
+                                }]
+                        },
+                        { path: 'shopItems',
+                            populate: [{
+                                    path: 'parent'
+                                }]
+                        }
+                    ]
+                }
+            ]
+        }).select('shopOwner');
         if (shops) {
             (0, responseHandler_1.response)(200, 1, shops, "Shop fetched", res);
         }

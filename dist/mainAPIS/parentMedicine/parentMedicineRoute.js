@@ -9,6 +9,7 @@ const authentication_1 = __importDefault(require("../../helpers/authentication")
 const router = (0, express_1.Router)();
 router.post("/", authentication_1.default, parentMedicineController_1.createParentCategory);
 router.get("/", parentMedicineController_1.getParentCategoryName);
+router.post("/parent", parentMedicineController_1.parentCategoryById);
 router.patch("/:id");
 router.delete("/:id");
 exports.default = router;

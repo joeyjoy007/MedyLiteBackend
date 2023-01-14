@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createNews = void 0;
+exports.getNews = exports.createNews = void 0;
 const MedNewsSchema_1 = __importDefault(require("./MedNewsSchema"));
 const responseHandler_1 = require("../../helpers/responseHandler");
 const createNews = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,3 +27,15 @@ const createNews = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.createNews = createNews;
+const getNews = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const news = yield MedNewsSchema_1.default.find();
+        if (news) {
+            (0, responseHandler_1.response)(201, 1, news, "News fetched", res);
+        }
+    }
+    catch (error) {
+        (0, responseHandler_1.response)(400, 0, error, "News not fetched", res);
+    }
+});
+exports.getNews = getNews;

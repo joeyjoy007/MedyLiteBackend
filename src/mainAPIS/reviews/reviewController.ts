@@ -29,3 +29,16 @@ export const getShopReview: RequestHandler = async (req, res, next) => {
         response(400, 0, error.medicine, "Review not fetched", res);
     }
 };
+
+export const getParticularShopReview: RequestHandler = async (req, res, next) => {
+    try {
+        console.log('llll')
+        const shopId = req.body.id;
+        console.log('shhhh',shopId)
+        const review = await reviewsModel.find({shopId}).populate('userId');
+        console.log('Reviews',review)
+        response(201, 1, review, "Review  fetched", res);
+    } catch (error:any) {
+        response(400, 0, error.medicine, "Review not fetched", res);
+    }
+};

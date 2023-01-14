@@ -13,3 +13,14 @@ export const createNews :RequestHandler = async(req,res,next)=>{
     }
     
 }
+
+export const getNews :RequestHandler = async(req,res,next)=>{
+    try {
+        const news = await MedNewsSchema.find()
+        if(news){
+            response(201, 1, news, "News fetched", res);
+        }
+    } catch (error:any) {
+        response(400, 0, error, "News not fetched", res);
+    }
+}

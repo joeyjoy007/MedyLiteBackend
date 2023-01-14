@@ -31,3 +31,26 @@ export const getParentCategoryName:RequestHandler = async(req,res,next)=>{
          res.status(400).json({message:error.message})
     }
 }
+
+export const parentCategoryById :RequestHandler = async(req,res,next)=>{
+    try {
+        const _id = req.body.id
+        console.log('ddd',_id);
+        const medicineCategory = await parentMedicine.findById(_id).populate({
+            path:'child',
+            populate:[{
+                path:'parent'
+            }]
+        })
+
+        if(medicineCategory){
+            response(201,1,medicineCategory,"MedicineCategory fetched",res)
+        }
+        else{
+            response(400,0,"Category not found","error occured",res)
+        }
+      
+    } catch (error:any) {
+         res.status(400).json({message:error.message})
+    }
+}

@@ -9,6 +9,7 @@ const OTCMedicineController_1 = require("./OTCMedicineController");
 const router = (0, express_1.Router)();
 router.post("/", authentication_1.default, OTCMedicineController_1.createMedicineList);
 router.get("/", OTCMedicineController_1.getAllMedicine);
+router.post("/info", OTCMedicineController_1.getMedInfo);
 router.patch("/:id");
 router.delete("/:id");
 router.put("/update", OTCMedicineController_1.updateInALlMedicine);

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getParentCategoryName = exports.createParentCategory = void 0;
+exports.parentCategoryById = exports.getParentCategoryName = exports.createParentCategory = void 0;
 const responseHandler_1 = require("../../helpers/responseHandler");
 const parentMedicine_1 = __importDefault(require("./parentMedicine"));
 const createParentCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -44,3 +44,25 @@ const getParentCategoryName = (req, res, next) => __awaiter(void 0, void 0, void
     }
 });
 exports.getParentCategoryName = getParentCategoryName;
+const parentCategoryById = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const _id = req.body.id;
+        console.log('ddd', _id);
+        const medicineCategory = yield parentMedicine_1.default.findById(_id).populate({
+            path: 'child',
+            populate: [{
+                    path: 'parent'
+                }]
+        });
+        if (medicineCategory) {
+            (0, responseHandler_1.response)(201, 1, medicineCategory, "MedicineCategory fetched", res);
+        }
+        else {
+            (0, responseHandler_1.response)(400, 0, "Category not found", "error occured", res);
+        }
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+exports.parentCategoryById = parentCategoryById;
