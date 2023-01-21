@@ -81,7 +81,12 @@ export const loginUser: RequestHandler = async (req, res, next) => {
 
 export const getAllChemist: RequestHandler = async (req, res, next) => {
     try {
-        const chemist = await chemistModel.find();
+        const chemist = await chemistModel.find({role:'Chemist'}).populate({
+            path:'shopId',
+            populate:[{
+                path:'reviews'
+            }]
+        });
         if (chemist) {
             response(200, 1, chemist, "Chemist fethced", res);
         }

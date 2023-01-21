@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parentCategoryById = exports.getParentCategoryName = exports.createParentCategory = void 0;
+exports.parentCategoryById = exports.updateImage = exports.getParentCategoryName = exports.createParentCategory = void 0;
 const responseHandler_1 = require("../../helpers/responseHandler");
 const parentMedicine_1 = __importDefault(require("./parentMedicine"));
 const createParentCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -31,7 +31,7 @@ const createParentCategory = (req, res, next) => __awaiter(void 0, void 0, void 
 exports.createParentCategory = createParentCategory;
 const getParentCategoryName = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const medicineCategory = yield parentMedicine_1.default.find().select('name');
+        const medicineCategory = yield parentMedicine_1.default.find().select('name image');
         if (medicineCategory) {
             (0, responseHandler_1.response)(201, 1, medicineCategory, "MedicineCategory created", res);
         }
@@ -44,6 +44,21 @@ const getParentCategoryName = (req, res, next) => __awaiter(void 0, void 0, void
     }
 });
 exports.getParentCategoryName = getParentCategoryName;
+const updateImage = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const medicineCategory = yield parentMedicine_1.default.updateMany({ image: 'kk' });
+        if (medicineCategory) {
+            (0, responseHandler_1.response)(201, 1, medicineCategory, "MedicineCategory created", res);
+        }
+        else {
+            (0, responseHandler_1.response)(400, 0, "Category not found", "error occured", res);
+        }
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+exports.updateImage = updateImage;
 const parentCategoryById = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const _id = req.body.id;

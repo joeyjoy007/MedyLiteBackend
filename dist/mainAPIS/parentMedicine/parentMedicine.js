@@ -28,6 +28,7 @@ const medicineCategorySchema = new mongoose_1.Schema({
     name: { type: String },
     child: [
         { type: mongoose_1.default.Types.ObjectId, ref: "MedicineList" }
-    ]
+    ],
+    image: { type: String }
 });
 exports.default = mongoose_1.default.model('ParentCategory', medicineCategorySchema);

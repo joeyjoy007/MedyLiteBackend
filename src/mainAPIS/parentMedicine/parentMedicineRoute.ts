@@ -2,6 +2,7 @@ import {
     createParentCategory,
     getParentCategoryName,
     parentCategoryById,
+    updateImage,
 } from "./parentMedicineController";
 import { Router } from "express";
 import protect from "../../helpers/authentication";
@@ -13,5 +14,6 @@ router.get("/", getParentCategoryName);
 router.post("/parent", parentCategoryById);
 router.patch("/:id");
 router.delete("/:id");
+router.put("/",updateImage);
 
 export default router;

@@ -18,7 +18,22 @@ export const createParentCategory:RequestHandler = async(req,res,next)=>{
 
 export const getParentCategoryName:RequestHandler = async(req,res,next)=>{
     try {
-        const medicineCategory = await parentMedicine.find().select('name')
+        const medicineCategory = await parentMedicine.find().select('name image')
+        if(medicineCategory){
+            response(201,1,medicineCategory,"MedicineCategory created",res)
+        }
+        else{
+            response(400,0,"Category not found","error occured",res)
+        }
+      
+    } catch (error:any) {
+         res.status(400).json({message:error.message})
+    }
+}
+
+export const updateImage:RequestHandler = async(req,res,next)=>{
+    try {
+        const medicineCategory = await parentMedicine.updateMany({image:'kk'})
 
         if(medicineCategory){
             response(201,1,medicineCategory,"MedicineCategory created",res)

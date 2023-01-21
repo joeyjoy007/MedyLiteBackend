@@ -12,4 +12,5 @@ router.get("/", parentMedicineController_1.getParentCategoryName);
 router.post("/parent", parentMedicineController_1.parentCategoryById);
 router.patch("/:id");
 router.delete("/:id");
+router.put("/", parentMedicineController_1.updateImage);
 exports.default = router;

@@ -87,7 +87,12 @@ const loginUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function
 exports.loginUser = loginUser;
 const getAllChemist = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const chemist = yield chemistModel_1.default.find();
+        const chemist = yield chemistModel_1.default.find({ role: 'Chemist' }).populate({
+            path: 'shopId',
+            populate: [{
+                    path: 'reviews'
+                }]
+        });
         if (chemist) {
             (0, responseHandler_1.response)(200, 1, chemist, "Chemist fethced", res);
         }
