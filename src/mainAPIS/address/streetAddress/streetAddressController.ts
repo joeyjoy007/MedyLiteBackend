@@ -41,5 +41,31 @@ export const getLocalAddress: RequestHandler = async (req, res, next) => {
     }
 };
 
+export const getCityAddress: RequestHandler = async (req, res, next) => {
+    try {
+        console.log("VAl",req.body);
+        const address = await  streetAddressModel.find({parentAddress:req.body.id})
+        console.log("Address",address);
+        if(address){
+            response(201, 1, address, "state city address fetched ", res);
+        }
+    } catch (error: any) {
+        response(400, 0, error.message, "state city address not fetched", res);
+    }
+};
+export const getCityPincode: RequestHandler = async (req, res, next) => {
+    try {
+        console.log("VAl",req.body);
+        const address = await  streetAddressModel.find({_id:req.body._id}).select('pinCode')
+        console.log("Pincode",address);
+        if(address){
+            response(201, 1, address, "pincode fetched ", res);
+        }
+    } catch (error: any) {
+        response(400, 0, error.message, "pincode not fetched", res);
+    }
+};
 
-module.exports = { createStreetAddress ,getStreetAddress ,getLocalAddress};
+
+
+module.exports = { createStreetAddress ,getStreetAddress ,getLocalAddress,getCityAddress,getCityPincode};

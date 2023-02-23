@@ -17,7 +17,7 @@ const y = require("./redis");
 const app = express();
 
 /** Connect to mongoDB */
-
+mongoose.set("strictQuery", false);
 mongoose
     .connect(config.mongo.uri)
     .then(() => {
@@ -25,7 +25,7 @@ mongoose
         startServer();
     })
     .catch((err) => {
-        console.log(err.message);
+        console.log("Error==>",err.message);
     });
 
 // app.use('/todos',todoRoutes)
@@ -88,6 +88,10 @@ const startServer = () => {
 
         return res.status(404).json({ error: error.message });
     });
+
+    app.get('/',(req,res)=>{
+        res.send("App started")
+    })
     app.listen(config.port.port, () => {
         Logging.info(`Port is running on ${config.port.port}`);
     });

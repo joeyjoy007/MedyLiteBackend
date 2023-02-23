@@ -10,7 +10,8 @@ export interface IChemist {
         role: string,
         shopName:  string ,
         shopId: Types.ObjectId,
-        streetAddress: Types.ObjectId,
+        localAddress:string,
+        // streetAddress: Types.ObjectId,
 }
 
 export interface IChemistModel extends IChemist, Document {
@@ -19,14 +20,15 @@ export interface IChemistModel extends IChemist, Document {
 
 const chemistSchema: Schema = new Schema(
     {
-        name: { type: String },
+        name: { type: String }, //common
         experience: { type: String },
-        phoneNumber: { type: String },
-        password: { type: String },
-        role: { type: String, default: "user" },
+        phoneNumber: { type: String }, //common
+        password: { type: String }, //common
+        role: { type: String, default: "User" }, //common
         shopName: { type: String },
         shopId: { type: mongoose.Types.ObjectId, ref: "Shop" },
-        streetAddress: { type: mongoose.Types.ObjectId ,ref:"StreetAddress"},
+        localAddress:{type:String},
+        // streetAddress: { type: mongoose.Types.ObjectId ,ref:"StreetAddress"}, //common
     },
     {
         timestamps: true,

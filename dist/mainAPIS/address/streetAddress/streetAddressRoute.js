@@ -5,5 +5,7 @@ const express_1 = require("express");
 const router = (0, express_1.Router)();
 router.post('/create', streetAddressController_1.createStreetAddress);
 router.get('/get', streetAddressController_1.getStreetAddress);
+router.post('/getCity', streetAddressController_1.getCityAddress);
+router.post('/getPincode', streetAddressController_1.getCityPincode);
 router.post('/getLocal', streetAddressController_1.getLocalAddress);
 exports.default = router;

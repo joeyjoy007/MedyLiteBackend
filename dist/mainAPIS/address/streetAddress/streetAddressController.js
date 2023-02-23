@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLocalAddress = exports.getStreetAddress = exports.createStreetAddress = void 0;
+exports.getCityPincode = exports.getCityAddress = exports.getLocalAddress = exports.getStreetAddress = exports.createStreetAddress = void 0;
 const responseHandler_1 = require("./../../../helpers/responseHandler");
 const streetAddressModel_1 = __importDefault(require("./streetAddressModel"));
 const stateModel_1 = __importDefault(require("../state/stateModel"));
@@ -56,4 +56,32 @@ const getLocalAddress = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.getLocalAddress = getLocalAddress;
-module.exports = { createStreetAddress: exports.createStreetAddress, getStreetAddress: exports.getStreetAddress, getLocalAddress: exports.getLocalAddress };
+const getCityAddress = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log("VAl", req.body);
+        const address = yield streetAddressModel_1.default.find({ parentAddress: req.body.id });
+        console.log("Address", address);
+        if (address) {
+            (0, responseHandler_1.response)(201, 1, address, "state city address fetched ", res);
+        }
+    }
+    catch (error) {
+        (0, responseHandler_1.response)(400, 0, error.message, "state city address not fetched", res);
+    }
+});
+exports.getCityAddress = getCityAddress;
+const getCityPincode = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log("VAl", req.body);
+        const address = yield streetAddressModel_1.default.find({ _id: req.body._id }).select('pinCode');
+        console.log("Pincode", address);
+        if (address) {
+            (0, responseHandler_1.response)(201, 1, address, "pincode fetched ", res);
+        }
+    }
+    catch (error) {
+        (0, responseHandler_1.response)(400, 0, error.message, "pincode not fetched", res);
+    }
+});
+exports.getCityPincode = getCityPincode;
+module.exports = { createStreetAddress: exports.createStreetAddress, getStreetAddress: exports.getStreetAddress, getLocalAddress: exports.getLocalAddress, getCityAddress: exports.getCityAddress, getCityPincode: exports.getCityPincode };

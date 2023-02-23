@@ -17,10 +17,11 @@ const responseHandler_1 = require("../../helpers/responseHandler");
 const shopModal_1 = __importDefault(require("./shopModal"));
 const insertShopItem = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("body", req.body);
+        console.log("body", req.body.shopItems);
         const _id = req.params.id;
+        console.log(_id);
         const shopItem = yield shopModal_1.default.findByIdAndUpdate(_id, {
-            shopItems: req.body,
+            shopItems: req.body.shopItems,
         }, { new: true });
         if (shopItem) {
             (0, responseHandler_1.response)(200, 1, shopItem, "Shop Items Added", res);

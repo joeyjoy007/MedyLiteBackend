@@ -18,21 +18,24 @@ const responseHandler_1 = require("../../helpers/responseHandler");
 const chemistModel_1 = __importDefault(require("./chemistModel"));
 const shopModal_1 = __importDefault(require("../shop/shopModal"));
 const streetAddressModel_1 = __importDefault(require("../address/streetAddress/streetAddressModel"));
+const userAddressModel_1 = __importDefault(require("../address/userAddress/userAddressModel"));
 const createChemist = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log("Chemist Data...", req.body);
-        const chemist = new chemistModel_1.default(req.body)
-            .save()
+        const chemist = yield new chemistModel_1.default(req.body).save()
             .then((chemist) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(66);
             (0, responseHandler_1.response)(201, 1, chemist, "Chemist created", res);
-            if (chemist.role === "chemist") {
+            if (chemist.role === "Chemist") {
                 const shop = yield new shopModal_1.default({
                     shopName: chemist.shopName,
                     shopOwner: chemist._id,
                 }).save();
+                console.log(2);
                 const updateChemist = yield chemistModel_1.default.findByIdAndUpdate({
                     _id: chemist._id,
                 }, { shopId: shop._id });
+                const createUserAddress = yield new userAddressModel_1.default(Object.assign(Object.assign({}, req.body), { shopNearBy: shop._id })).save();
                 const updateAddress = yield streetAddressModel_1.default.findByIdAndUpdate({ _id: req.body.streetAddress }, {
                     $push: { chemistInArea: chemist._id }
                 });

@@ -43,10 +43,11 @@ const chemistSchema = new mongoose_1.Schema({
     experience: { type: String },
     phoneNumber: { type: String },
     password: { type: String },
-    role: { type: String, default: "user" },
+    role: { type: String, default: "User" },
     shopName: { type: String },
     shopId: { type: mongoose_1.default.Types.ObjectId, ref: "Shop" },
-    streetAddress: { type: mongoose_1.default.Types.ObjectId, ref: "StreetAddress" },
+    localAddress: { type: String },
+    // streetAddress: { type: mongoose.Types.ObjectId ,ref:"StreetAddress"}, //common
 }, {
     timestamps: true,
 });

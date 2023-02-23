@@ -4,12 +4,13 @@ import shopModal from "./shopModal";
 
 export const insertShopItem: RequestHandler = async (req, res, next) => {
     try {
-        console.log("body", req.body);
+        console.log("body", req.body.shopItems);
         const _id = req.params.id;
+        console.log(_id)
         const shopItem = await shopModal.findByIdAndUpdate(
             _id,
             {
-                shopItems: req.body,
+                shopItems: req.body.shopItems,
             },
             { new: true }
         );

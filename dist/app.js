@@ -20,6 +20,7 @@ const MedNewsRoute_1 = __importDefault(require("./mainAPIS/medNews/MedNewsRoute"
 const y = require("./redis");
 const app = (0, express_1.default)();
 /** Connect to mongoDB */
+mongoose_1.default.set("strictQuery", false);
 mongoose_1.default
     .connect(config_1.config.mongo.uri)
     .then(() => {
@@ -27,7 +28,7 @@ mongoose_1.default
     startServer();
 })
     .catch((err) => {
-    console.log(err.message);
+    console.log("Error==>", err.message);
 });
 // app.use('/todos',todoRoutes)
 // app.use((err:Error,req:Request,res:Response,next:NextFunction)=>{
@@ -69,6 +70,9 @@ const startServer = () => {
         const error = new Error("not found");
         Logging_1.default.error(error);
         return res.status(404).json({ error: error.message });
+    });
+    app.get('/', (req, res) => {
+        res.send("App started");
     });
     app.listen(config_1.config.port.port, () => {
         Logging_1.default.info(`Port is running on ${config_1.config.port.port}`);

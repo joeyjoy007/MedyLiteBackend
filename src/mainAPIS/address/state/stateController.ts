@@ -16,7 +16,10 @@ export const createState: RequestHandler = async (req, res, next) => {
 
 export const getState: RequestHandler = async (req, res, next) => {
     try {
-        const address = await  stateModel.find();
+        const address = await  stateModel.find().populate({
+            path:'stateChild',
+            populate:'chemistInArea'
+        })
         if(address){
             response(201, 1, address, "State fetched", res);
         }

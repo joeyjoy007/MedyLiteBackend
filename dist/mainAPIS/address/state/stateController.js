@@ -29,7 +29,10 @@ const createState = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
 exports.createState = createState;
 const getState = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const address = yield stateModel_1.default.find();
+        const address = yield stateModel_1.default.find().populate({
+            path: 'stateChild',
+            populate: 'chemistInArea'
+        });
         if (address) {
             (0, responseHandler_1.response)(201, 1, address, "State fetched", res);
         }

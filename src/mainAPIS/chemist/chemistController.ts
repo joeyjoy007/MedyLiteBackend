@@ -4,27 +4,31 @@ import { response } from "../../helpers/responseHandler";
 import chemistModel from "./chemistModel";
 import shopModal from "../shop/shopModal";
 import streetAddressModel from "../address/streetAddress/streetAddressModel";
+import userAddressModel from "../address/userAddress/userAddressModel";
+import { stringify } from "querystring";
 
 export const createChemist: RequestHandler = async (req, res, next) => {
     try {
         console.log("Chemist Data...",req.body)
-        const chemist = new chemistModel(req.body)
-            .save()
+        const chemist = await new chemistModel(req.body).save()
             .then(async (chemist) => {
+                console.log(66)
                 response(201, 1, chemist, "Chemist created", res);
-                if (chemist.role === "chemist") {
+                if (chemist.role === "Chemist") {
                     const shop = await new shopModal({
                         shopName: chemist.shopName,
                         shopOwner: chemist._id,
                     }).save();
-
+console.log(2)
                     const updateChemist = await chemistModel.findByIdAndUpdate(
                         {
                             _id: chemist._id,
                         },
                         { shopId: shop._id }
                     );
+           
 
+                    const createUserAddress =await new userAddressModel({...req.body,shopNearBy:shop._id}).save()
                     const updateAddress = await streetAddressModel.findByIdAndUpdate({_id:req.body.streetAddress},{
                         $push:{chemistInArea:chemist._id}
                     })
