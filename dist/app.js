@@ -55,15 +55,15 @@ const startServer = () => {
         next();
     });
     /**Routes */
-    app.use("/medicine", medicineRoutes_1.default);
-    app.use("/chemist", chemistRoutes_1.default);
-    app.use("/parentCategory", parentMedicineRoute_1.default);
-    app.use("/medicineList", OTCMedicineRoutes_1.default);
-    app.use("/shop", shopRoute_1.default);
-    app.use("/review", reviewRoute_1.default);
-    app.use("/state", stateRoute_1.default);
-    app.use("/street", streetAddressRoute_1.default);
-    app.use("/medNews", MedNewsRoute_1.default);
+    app.use("/api/medicine", medicineRoutes_1.default);
+    app.use("/api/chemist", chemistRoutes_1.default);
+    app.use("/api/parentCategory", parentMedicineRoute_1.default);
+    app.use("/api/medicineList", OTCMedicineRoutes_1.default);
+    app.use("/api/shop", shopRoute_1.default);
+    app.use("/api/review", reviewRoute_1.default);
+    app.use("/api/state", stateRoute_1.default);
+    app.use("/api/street", streetAddressRoute_1.default);
+    app.use("/api/medNews", MedNewsRoute_1.default);
     /**Healthcheck */
     /**Error handeling */
     app.use((req, res, next) => {
@@ -71,7 +71,7 @@ const startServer = () => {
         Logging_1.default.error(error);
         return res.status(404).json({ error: error.message });
     });
-    app.get('/start', (req, res) => {
+    app.get('/api/start', (req, res) => {
         res.send("App started");
     });
     app.listen(config_1.config.port.port, () => {

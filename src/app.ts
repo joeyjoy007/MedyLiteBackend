@@ -69,15 +69,15 @@ const startServer = () => {
     });
 
     /**Routes */
-    app.use("/medicine", medicineRoute);
-    app.use("/chemist", chemistRoute);
-    app.use("/parentCategory", parentCategoryRoute);
-    app.use("/medicineList", medicineListRoute);
-    app.use("/shop", shopListRoute);
-    app.use("/review", reviewListRoute);
-    app.use("/state", stateRoute);
-    app.use("/street", streetAddressRoute);
-    app.use("/medNews", medNewsRoute);
+    app.use("/api/medicine", medicineRoute);
+    app.use("/api/chemist", chemistRoute);
+    app.use("/api/parentCategory", parentCategoryRoute);
+    app.use("/api/medicineList", medicineListRoute);
+    app.use("/api/shop", shopListRoute);
+    app.use("/api/review", reviewListRoute);
+    app.use("/api/state", stateRoute);
+    app.use("/api/street", streetAddressRoute);
+    app.use("/api/medNews", medNewsRoute);
     /**Healthcheck */
 
     /**Error handeling */
@@ -89,7 +89,7 @@ const startServer = () => {
         return res.status(404).json({ error: error.message });
     });
 
-    app.get('/start',(req,res)=>{
+    app.get('/api/start',(req,res)=>{
         res.send("App started")
     })
     app.listen(config.port.port, () => {
