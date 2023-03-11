@@ -89,7 +89,7 @@ const startServer = () => {
         return res.status(404).json({ error: error.message });
     });
 
-    app.get('/',(req,res)=>{
+    app.get('/start',(req,res)=>{
         res.send("App started")
     })
     app.listen(config.port.port, () => {

@@ -71,7 +71,7 @@ const startServer = () => {
         Logging_1.default.error(error);
         return res.status(404).json({ error: error.message });
     });
-    app.get('/', (req, res) => {
+    app.get('/start', (req, res) => {
         res.send("App started");
     });
     app.listen(config_1.config.port.port, () => {
